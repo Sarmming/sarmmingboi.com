@@ -1,58 +1,1260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Samuel | Designer</title>
-<link rel="stylesheet" href="style.css">
-</head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Samuel Akintoye — Senior Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Archivo:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --gold-dark: #8B6914;
+    --black: #0A0A08;
+    --dark: #111110;
+    --mid: #1C1C1A;
+    --surface: #242422;
+    --text: #E8E4DC;
+    --muted: #8A8680;
+    --white: #F5F2EC;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Archivo', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
+    transition: width 0.3s, height 0.3s, opacity 0.3s;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dark); }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.8rem 4rem;
+    background: linear-gradient(to bottom, rgba(10,10,8,0.97) 0%, transparent 100%);
+    backdrop-filter: blur(4px);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    color: var(--gold) !important;
+    border: 1px solid rgba(201,169,110,0.35);
+    padding: 0.5rem 1.2rem;
+    transition: background 0.3s, color 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--black) !important; }
+
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; z-index: 600; background: none; border: none; }
+  .hamburger span { display: block; width: 24px; height: 1px; background: var(--gold); transition: all 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,8,0.98);
+    z-index: 550;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.3s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8rem 3rem 5rem 5rem;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 6vw, 7rem);
+    font-weight: 300;
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .hero-name em { font-style: italic; color: var(--gold); }
+  .hero-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+  .hero-desc {
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: var(--muted);
+    max-width: 400px;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.1s forwards;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 0.9rem 2.2rem;
+    background: var(--gold);
+    color: var(--black);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-ghost {
+    display: inline-block;
+    padding: 0.9rem 2.2rem;
+    border: 1px solid rgba(138,134,128,0.4);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: border-color 0.3s, color 0.3s, transform 0.3s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-right { position: relative; overflow: hidden; }
+  .hero-visual {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--mid) 0%, var(--dark) 50%, #1a1508 100%);
+  }
+  .hero-grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,169,110,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,169,110,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(201,169,110,0.12);
+  }
+  .hc1 { width: 500px; height: 500px; top: -100px; right: -100px; }
+  .hc2 { width: 340px; height: 340px; bottom: 60px; left: 80px; border-color: rgba(201,169,110,0.07); }
+  .hc3 { width: 190px; height: 190px; top: 40%; right: 30%; border-style: dashed; border-color: rgba(201,169,110,0.09); animation: spin 30s linear infinite; }
+
+  .hero-stats {
+    position: absolute;
+    bottom: 4rem;
+    right: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: right;
+    opacity: 0;
+    animation: fadeIn 1s 1.4s forwards;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.63rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-top: 0.3rem;
+  }
+  .hero-line {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+    opacity: 0;
+    animation: fadeIn 1s 1.6s forwards;
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    padding: 1.5rem 0;
+    background: var(--mid);
+    border-top: 1px solid rgba(201,169,110,0.12);
+    border-bottom: 1px solid rgba(201,169,110,0.12);
+    overflow: hidden;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 4rem;
+    animation: marquee 22s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    font-size: 0.63rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+  }
+  .marquee-item::after { content: '✦'; color: var(--gold); font-size: 0.45rem; }
+
+  /* ABOUT */
+  #about {
+    padding: 9rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 7rem;
+    align-items: center;
+  }
+  .about-label {
+    font-size: 0.63rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .about-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3.6rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--white);
+    margin-bottom: 2.5rem;
+  }
+  .about-heading em { font-style: italic; color: var(--gold); }
+  .about-divider { width: 55px; height: 1px; background: var(--gold-dark); margin-bottom: 2.5rem; }
+  .about-text { font-size: 0.88rem; line-height: 1.9; color: var(--muted); margin-bottom: 1.5rem; }
+  .about-right { display: flex; flex-direction: column; gap: 2rem; }
+  .competency-group { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem; }
+  .competency-title { font-size: 0.63rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .competency-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .tag {
+    font-size: 0.7rem;
+    color: var(--muted);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 0.4rem 0.85rem;
+    letter-spacing: 0.04em;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .tag:hover { border-color: var(--gold-dark); color: var(--text); }
+
+  /* EXPERIENCE */
+  #experience {
+    padding: 8rem 5rem;
+    background: var(--dark);
+    position: relative;
+  }
+  #experience::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 5rem; right: 5rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,169,110,0.25), transparent);
+  }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 5rem;
+  }
+  .section-label {
+    font-size: 0.63rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+  }
+  .section-count {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    font-weight: 300;
+    color: rgba(201,169,110,0.08);
+    line-height: 1;
+  }
+
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold-dark), transparent);
+  }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    gap: 3rem;
+    padding: 3rem 0 3rem 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    position: relative;
+    transition: background 0.3s;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -4px; top: 3.25rem;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 14px rgba(201,169,110,0.45);
+  }
+  .timeline-item:hover { background: rgba(201,169,110,0.02); }
+  .timeline-period { font-size: 0.67rem; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 0.5rem; }
+  .timeline-company { font-size: 0.73rem; color: var(--muted); letter-spacing: 0.04em; }
+  .timeline-location { font-size: 0.63rem; color: rgba(138,134,128,0.55); margin-top: 0.3rem; }
+  .timeline-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .timeline-bullets { list-style: none; }
+  .timeline-bullets li {
+    font-size: 0.84rem;
+    line-height: 1.75;
+    color: var(--muted);
+    padding-left: 1rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+  .timeline-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--gold-dark); }
+  .timeline-highlight {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    border: 1px solid rgba(201,169,110,0.18);
+    padding: 0.35rem 0.85rem;
+  }
+
+  /* ACHIEVEMENTS */
+  #achievements { padding: 8rem 5rem; background: var(--black); }
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.04);
+    margin-top: 4rem;
+  }
+  .achievement-card {
+    background: var(--black);
+    padding: 3rem;
+    transition: background 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .achievement-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--gold);
+    transition: height 0.4s;
+  }
+  .achievement-card:hover { background: rgba(201,169,110,0.025); }
+  .achievement-card:hover::before { height: 100%; }
+  .achievement-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .achievement-text { font-size: 0.86rem; line-height: 1.75; color: var(--muted); }
+
+  /* SKILLS */
+  #skills { padding: 8rem 5rem; background: var(--dark); }
+  #skills::before {
+    content: '';
+    display: block;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,169,110,0.2), transparent);
+    margin-bottom: 0;
+    position: absolute;
+    left: 5rem; right: 5rem;
+  }
+  #skills { position: relative; }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+    margin-top: 4rem;
+  }
+  .skill-cat-title {
+    font-size: 0.63rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(201,169,110,0.12);
+  }
+  .skill-bar-item { margin-bottom: 1.3rem; }
+  .skill-name {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .skill-pct { color: var(--gold); font-size: 0.7rem; }
+  .skill-track {
+    height: 1px;
+    background: rgba(255,255,255,0.07);
+    position: relative;
+  }
+  .skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+    width: 0;
+    transition: width 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* CERTIFICATIONS */
+  #certifications { padding: 6rem 5rem; background: var(--mid); }
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.8rem;
+    margin-top: 4rem;
+  }
+  .cert-card {
+    border: 1px solid rgba(201,169,110,0.1);
+    padding: 2rem;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .cert-card:hover { border-color: rgba(201,169,110,0.4); transform: translateY(-5px); }
+  .cert-icon { font-size: 1.3rem; margin-bottom: 1rem; display: block; color: var(--gold); }
+  .cert-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .cert-issuer { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; }
+  .cert-year { font-size: 0.65rem; color: var(--muted); margin-top: 0.3rem; }
+
+  /* CONTACT */
+  #contact {
+    padding: 8rem 5rem;
+    background: var(--black);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .contact-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+  }
+  .contact-heading em { font-style: italic; color: var(--gold); }
+  .contact-text { font-size: 0.88rem; line-height: 1.85; color: var(--muted); margin-bottom: 3rem; }
+  .contact-links { display: flex; flex-direction: column; }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.83rem;
+    transition: color 0.3s;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .contact-link:hover { color: var(--gold); }
+  .link-label { font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); min-width: 80px; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1.5rem; padding-top: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-label { font-size: 0.63rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+  .form-input, .form-textarea {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.07);
+    color: var(--text);
+    padding: 0.9rem 1.1rem;
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.86rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+    cursor: none;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--gold-dark); }
+  .form-textarea { resize: vertical; min-height: 130px; }
+  .form-submit {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 1rem 2rem;
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: background 0.3s, color 0.3s;
+    align-self: flex-start;
+  }
+  .form-submit:hover { background: var(--gold); color: var(--black); }
+  .form-success {
+    display: none;
+    padding: 1rem;
+    background: rgba(201,169,110,0.08);
+    border: 1px solid rgba(201,169,110,0.25);
+    color: var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2.5rem 5rem;
+    background: var(--mid);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1rem; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; }
+  .footer-copy { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-size: 0.66rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(38px);
+    transition: opacity 0.85s cubic-bezier(0.25, 1, 0.5, 1), transform 0.85s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.2s; }
+  .reveal-d3 { transition-delay: 0.3s; }
+  .reveal-d4 { transition-delay: 0.4s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    #hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 10rem 3rem 5rem; }
+    .hero-right { display: none; }
+    #about { grid-template-columns: 1fr; gap: 4rem; padding: 6rem 3rem; }
+    #experience { padding: 6rem 3rem; }
+    #experience::before { left: 3rem; right: 3rem; }
+    .timeline-item { grid-template-columns: 1fr; gap: 1rem; padding-left: 2.5rem; }
+    #achievements { padding: 6rem 3rem; }
+    .achievements-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    #skills { padding: 6rem 3rem; }
+    .certs-grid { grid-template-columns: 1fr 1fr; padding: 0; }
+    #certifications { padding: 6rem 3rem; }
+    #contact { grid-template-columns: 1fr; gap: 4rem; padding: 6rem 3rem; }
+    footer { padding: 2.5rem 3rem; }
+    nav { padding: 1.5rem 2rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+  }
+  @media (max-width: 600px) {
+    .hero-left { padding: 9rem 1.8rem 4rem; }
+    #about, #experience, #achievements, #skills, #certifications, #contact { padding: 5rem 1.8rem; }
+    footer { padding: 2rem 1.8rem; flex-direction: column; text-align: center; }
+    .certs-grid { grid-template-columns: 1fr; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .section-count { font-size: 3rem; }
+    .hero-actions { flex-direction: column; align-items: flex-start; }
+    #experience::before { left: 1.8rem; right: 1.8rem; }
+  }
+</style>
+</head>
 <body>
 
-<header class="hero">
-    <h1>Omoobaiye Samuel</h1>
-    <p>Senior Graphic & Brand Designer</p>
-    <a href="mailto:omoobaiyeakintoyesamuel@gmail.com" class="btn">Contact Me</a>
-</header>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-<section class="intro">
-    <p>
-        I design high-converting social media, branding, and marketing visuals.
-        I focus on designs that drive engagement and make brands stand out.
-    </p>
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">S. Akintoye</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#experience" onclick="closeMobile()">Experience</a>
+  <a href="#achievements" onclick="closeMobile()">Achievements</a>
+  <a href="#skills" onclick="closeMobile()">Skills</a>
+  <a href="#certifications" onclick="closeMobile()">Credentials</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Senior Graphic &amp; UI/UX Designer</p>
+    <h1 class="hero-name">Samuel<br><em>Akintoye</em></h1>
+    <p class="hero-title">Brand · Marketing · Digital Design</p>
+    <p class="hero-desc">7+ years crafting high-impact visual identities, marketing campaigns, and digital experiences across international markets — US, UK, Nigeria, Ghana.</p>
+    <div class="hero-actions">
+      <a href="#experience" class="btn-primary">View Experience</a>
+      <a href="#contact" class="btn-ghost">Start a Project</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="hero-grid-lines"></div>
+      <div class="hero-circle hc1"></div>
+      <div class="hero-circle hc2"></div>
+      <div class="hero-circle hc3"></div>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num" data-count="7">0</span>
+        <span class="stat-label">Years Experience</span>
+      </div>
+      <div>
+        <span class="stat-num" data-count="60">0</span>
+        <span class="stat-label">Projects Delivered</span>
+      </div>
+      <div>
+        <span class="stat-num" data-count="34">0</span>
+        <span class="stat-label">% Avg Engagement Uplift</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-line"></div>
 </section>
 
-<section class="work">
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Adobe Photoshop</span>
+    <span class="marquee-item">Illustrator</span>
+    <span class="marquee-item">Figma</span>
+    <span class="marquee-item">CorelDRAW</span>
+    <span class="marquee-item">Adobe XD</span>
+    <span class="marquee-item">Brand Identity</span>
+    <span class="marquee-item">UI/UX Design</span>
+    <span class="marquee-item">Social Media Campaigns</span>
+    <span class="marquee-item">Motion Graphics</span>
+    <span class="marquee-item">HTML5 · CSS3</span>
+    <span class="marquee-item">Adobe Photoshop</span>
+    <span class="marquee-item">Illustrator</span>
+    <span class="marquee-item">Figma</span>
+    <span class="marquee-item">CorelDRAW</span>
+    <span class="marquee-item">Adobe XD</span>
+    <span class="marquee-item">Brand Identity</span>
+    <span class="marquee-item">UI/UX Design</span>
+    <span class="marquee-item">Social Media Campaigns</span>
+    <span class="marquee-item">Motion Graphics</span>
+    <span class="marquee-item">HTML5 · CSS3</span>
+  </div>
+</div>
 
-    <a href="case1.html" class="card">
-        <img src="project1.jpg">
-        <div class="overlay">
-            <h3>Social Media Design</h3>
-            <p>View Case Study →</p>
-        </div>
-    </a>
-
-    <a href="case2.html" class="card">
-        <img src="project2.jpg">
-        <div class="overlay">
-            <h3>Brand Identity</h3>
-            <p>View Case Study →</p>
-        </div>
-    </a>
-
-    <a href="case3.html" class="card">
-        <img src="project3.jpg">
-        <div class="overlay">
-            <h3>Marketing Flyer</h3>
-            <p>View Case Study →</p>
-        </div>
-    </a>
-
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left reveal">
+    <p class="about-label">About</p>
+    <h2 class="about-heading">Design that <em>moves</em> people and markets.</h2>
+    <div class="about-divider"></div>
+    <p class="about-text">I'm a results-driven Senior Graphic Designer specialising in visual storytelling, conversion-focused campaigns, and cohesive brand identities. My work bridges the gap between aesthetics and strategy — every deliverable is both visually compelling and commercially effective.</p>
+    <p class="about-text">With experience spanning Austin, London, Lagos, and Accra, I bring an international perspective to every brief. Open to remote opportunities across the US, UK, and Canada.</p>
+  </div>
+  <div class="about-right reveal reveal-d2">
+    <div class="competency-group">
+      <p class="competency-title">Design Tools</p>
+      <div class="competency-tags">
+        <span class="tag">Photoshop</span><span class="tag">Illustrator</span>
+        <span class="tag">CorelDRAW</span><span class="tag">Figma</span><span class="tag">Adobe XD</span>
+      </div>
+    </div>
+    <div class="competency-group">
+      <p class="competency-title">Brand &amp; Marketing</p>
+      <div class="competency-tags">
+        <span class="tag">Visual Identity</span><span class="tag">Social Media</span>
+        <span class="tag">Campaign Design</span><span class="tag">Print &amp; Digital</span>
+      </div>
+    </div>
+    <div class="competency-group">
+      <p class="competency-title">UI/UX &amp; Front-End</p>
+      <div class="competency-tags">
+        <span class="tag">Wireframing</span><span class="tag">Prototyping</span>
+        <span class="tag">Responsive Design</span><span class="tag">HTML5</span><span class="tag">CSS3</span>
+      </div>
+    </div>
+    <div class="competency-group">
+      <p class="competency-title">Soft Skills</p>
+      <div class="competency-tags">
+        <span class="tag">Creative Direction</span><span class="tag">Client Communication</span>
+        <span class="tag">Agile Delivery</span><span class="tag">Team Mentorship</span>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header reveal">
+    <div>
+      <p class="section-label">Career Journey</p>
+      <h2 class="section-heading">Experience</h2>
+    </div>
+    <span class="section-count">05</span>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-left">
+        <p class="timeline-period">Jan 2024 — Present</p>
+        <p class="timeline-company">Clayvon Creative Agency</p>
+        <p class="timeline-location">Austin, TX · Remote</p>
+      </div>
+      <div class="timeline-right">
+        <p class="timeline-role">Senior Graphic Designer</p>
+        <ul class="timeline-bullets">
+          <li>Lead visual design across brand identity, social media, and digital marketing for B2B and B2C clients.</li>
+          <li>Produced 15+ high-performing creative assets per week with strict brand consistency.</li>
+          <li>Achieved an average 34% uplift in audience engagement through strategic creative collaboration.</li>
+          <li>Introduced a design QA process that reduced revision cycles by 25%.</li>
+        </ul>
+        <span class="timeline-highlight">↑ 34% Engagement · ↓ 25% Revisions</span>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-left">
+        <p class="timeline-period">2022 — Dec 2023</p>
+        <p class="timeline-company">SmartTeller</p>
+        <p class="timeline-location">Lagos, Nigeria · Remote</p>
+      </div>
+      <div class="timeline-right">
+        <p class="timeline-role">Senior Graphic Designer</p>
+        <ul class="timeline-bullets">
+          <li>Owned visual design for a fintech brand, growing follower engagement by over 40%.</li>
+          <li>Maintained unified brand language across web, mobile, and offline channels.</li>
+          <li>Mentored two junior designers through weekly structured design reviews.</li>
+          <li>Contributed to product UI improvements in Figma alongside the product team.</li>
+        </ul>
+        <span class="timeline-highlight">↑ 40% Follower Engagement</span>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-left">
+        <p class="timeline-period">2021 — 2022</p>
+        <p class="timeline-company">Meridian Brand Studio</p>
+        <p class="timeline-location">London, UK · Remote</p>
+      </div>
+      <div class="timeline-right">
+        <p class="timeline-role">Graphic Designer (Contract)</p>
+        <ul class="timeline-bullets">
+          <li>Delivered end-to-end branding projects for clients in retail, hospitality, and professional services.</li>
+          <li>Designed digital advertising assets for Meta and Google campaigns.</li>
+          <li>Managed client relationships independently from brief to final delivery.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-left">
+        <p class="timeline-period">2019 — 2021</p>
+        <p class="timeline-company">Gulf of Guinea Media Group</p>
+        <p class="timeline-location">Accra, Ghana</p>
+      </div>
+      <div class="timeline-right">
+        <p class="timeline-role">Graphic Designer</p>
+        <ul class="timeline-bullets">
+          <li>Led creative output for regional clients in media, entertainment, and FMCG sectors.</li>
+          <li>Standardised brand guidelines across multi-platform campaigns.</li>
+          <li>Completed 60+ projects consistently within scope and deadline.</li>
+        </ul>
+        <span class="timeline-highlight">60+ Projects · 95%+ Client Satisfaction</span>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-left">
+        <p class="timeline-period">2018 — 2019</p>
+        <p class="timeline-company">Royal Sign &amp; Print</p>
+        <p class="timeline-location">Offa, Nigeria</p>
+      </div>
+      <div class="timeline-right">
+        <p class="timeline-role">Junior Graphic Designer</p>
+        <ul class="timeline-bullets">
+          <li>Designed marketing materials for print and digital applications.</li>
+          <li>Supported website visual updates and basic UI improvements.</li>
+          <li>Contributed to branding campaigns for local and regional businesses.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-header reveal">
+    <div>
+      <p class="section-label">Results</p>
+      <h2 class="section-heading">Key Achievements</h2>
+    </div>
+    <span class="section-count">04</span>
+  </div>
+  <div class="achievements-grid">
+    <div class="achievement-card reveal">
+      <span class="achievement-num" data-count="34">0%</span>
+      <p class="achievement-text">Average increase in social media engagement across three client accounts through strategic creative redesigns.</p>
+    </div>
+    <div class="achievement-card reveal reveal-d1">
+      <span class="achievement-num" data-count="25">0%</span>
+      <p class="achievement-text">Reduction in client revision cycles at Clayvon Creative Agency via a structured design review workflow.</p>
+    </div>
+    <div class="achievement-card reveal reveal-d2">
+      <span class="achievement-num" data-count="60">0+</span>
+      <p class="achievement-text">Projects delivered on time and within budget at Gulf of Guinea Media Group, with 95%+ client satisfaction.</p>
+    </div>
+    <div class="achievement-card reveal reveal-d3">
+      <span class="achievement-num">2</span>
+      <p class="achievement-text">Junior designers mentored who went on to lead independent projects within six months of structured coaching.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header reveal">
+    <div>
+      <p class="section-label">Proficiency</p>
+      <h2 class="section-heading">Skills</h2>
+    </div>
+    <span class="section-count">03</span>
+  </div>
+  <div class="skills-grid">
+    <div class="reveal">
+      <p class="skill-cat-title">Design Software</p>
+      <div class="skill-bar-item">
+        <div class="skill-name"><span>Adobe Photoshop</span><span class="skill-pct">97%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="97"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-name"><span>Adobe Illustrator</span><span class="skill-pct">95%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="95"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-name"><span>Figma</span><span class="skill-pct">92%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="92"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-name"><span>CorelDRAW</span><span class="skill-pct">90%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-name"><span>Adobe XD</span><span class="skill-pct">85%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+      </div>
+    </div>
+    <div class="reveal reveal-d1">
+      <p class="skill-cat-title">Brand &amp; Marketing</p>
+      <div class="skill-bar-item">
+        <div class="skill-name"><span>Visual Identity</span><span class="skill-pct">95%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="95"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-name"><span>Campaign Design</span><span class="skill-pct">93%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="93"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-name"><span>Social Media Design</span><span class="skill-pct">90%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-name"><span>Print &amp; Digital</span><span class="skill-pct">88%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-name"><span>Motion Graphics</span><span class="skill-pct">78%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="78"></div></div>
+      </div>
+    </div>
+    <div class="reveal reveal-d2">
+      <p class="skill-cat-title">UI/UX &amp; Front-End</p>
+      <div class="skill-bar-item">
+        <div class="skill-name"><span>Wireframing</span><span class="skill-pct">88%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-name"><span>Prototyping</span><span class="skill-pct">85%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-name"><span>Responsive Design</span><span class="skill-pct">80%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-name"><span>HTML5</span><span class="skill-pct">72%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="72"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-name"><span>CSS3</span><span class="skill-pct">70%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="70"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-header reveal">
+    <div>
+      <p class="section-label">Credentials</p>
+      <h2 class="section-heading">Education &amp; Certifications</h2>
+    </div>
+    <span class="section-count">05</span>
+  </div>
+  <div class="certs-grid">
+    <div class="cert-card reveal">
+      <span class="cert-icon">✦</span>
+      <p class="cert-name">Google UX Design Certificate</p>
+      <p class="cert-issuer">Coursera</p>
+      <p class="cert-year">2023</p>
+    </div>
+    <div class="cert-card reveal reveal-d1">
+      <span class="cert-icon">✦</span>
+      <p class="cert-name">Advanced Figma for Designers</p>
+      <p class="cert-issuer">Udemy</p>
+      <p class="cert-year">2022</p>
+    </div>
+    <div class="cert-card reveal reveal-d2">
+      <span class="cert-icon">✦</span>
+      <p class="cert-name">Adobe Certified Professional</p>
+      <p class="cert-issuer">Visual Design</p>
+      <p class="cert-year">2021</p>
+    </div>
+    <div class="cert-card reveal reveal-d1">
+      <span class="cert-icon">◆</span>
+      <p class="cert-name">HND, Computer Science</p>
+      <p class="cert-issuer">Federal Polytechnic Offa</p>
+      <p class="cert-year">2024</p>
+    </div>
+    <div class="cert-card reveal reveal-d2">
+      <span class="cert-icon">◆</span>
+      <p class="cert-name">ND, Computer Science</p>
+      <p class="cert-issuer">Federal Polytechnic Offa</p>
+      <p class="cert-year">2021</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-left reveal">
+    <p class="section-label">Let's Connect</p>
+    <h2 class="contact-heading">Ready to create something <em>extraordinary?</em></h2>
+    <p class="contact-text">Open to freelance projects, full-time remote roles, and creative collaborations across the US, UK, and Canada. Let's build something remarkable together.</p>
+    <div class="contact-links">
+      <a href="mailto:omoobaiyeakintoyesamuel@gmail.com" class="contact-link">
+        <span class="link-label">Email</span>
+        <span>omoobaiyeakintoyesamuel@gmail.com</span>
+      </a>
+      <a href="https://linkedin.com/in/samuel-akintoye" target="_blank" class="contact-link">
+        <span class="link-label">LinkedIn</span>
+        <span>linkedin.com/in/samuel-akintoye</span>
+      </a>
+      <a href="https://sarmming.github.io/sarmmingboi.com" target="_blank" class="contact-link">
+        <span class="link-label">Portfolio</span>
+        <span>sarmming.github.io/sarmmingboi.com</span>
+      </a>
+    </div>
+  </div>
+  <div class="reveal reveal-d2">
+    <div class="contact-form">
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input type="text" class="form-input" id="formName" placeholder="Jane Smith"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" id="formEmail" placeholder="jane@company.com"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Project Brief</label>
+        <textarea class="form-textarea" id="formMessage" placeholder="Tell me about your project..."></textarea>
+      </div>
+      <button class="form-submit" onclick="handleSubmit()">Send Message →</button>
+      <div class="form-success" id="formSuccess">Thank you — I'll be in touch shortly.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-    <p>© 2026 Samuel</p>
+  <span class="footer-logo">S. Akintoye</span>
+  <span class="footer-copy">© 2025 Samuel Akintoye. All rights reserved.</span>
+  <div class="footer-links">
+    <a href="#hero">Top</a>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
 </footer>
 
+<script>
+  // CUSTOM CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  (function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  })();
+
+  document.querySelectorAll('a, button, .tag, .achievement-card, .cert-card, .timeline-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '18px'; cursor.style.height = '18px';
+      ring.style.width = '58px'; ring.style.height = '58px'; ring.style.opacity = '0.25';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px'; cursor.style.height = '10px';
+      ring.style.width = '36px'; ring.style.height = '36px'; ring.style.opacity = '0.6';
+    });
+  });
+
+  // HAMBURGER
+  document.getElementById('hamburger').addEventListener('click', function() {
+    this.classList.toggle('open');
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+  function closeMobile() {
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // COUNT-UP
+  function countUp(el) {
+    const target = parseInt(el.dataset.count);
+    const suffix = el.textContent.replace(/[0-9]/g, '');
+    let startTime = null;
+    const duration = 1800;
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(ease * target) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = target + suffix;
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Hero stats
+  setTimeout(() => {
+    document.querySelectorAll('.hero-stats [data-count]').forEach(countUp);
+  }, 1500);
+
+  // SCROLL REVEAL
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      // Skill bars
+      entry.target.querySelectorAll('.skill-fill').forEach(b => {
+        b.style.width = b.dataset.width + '%';
+      });
+      // Count-ups inside cards
+      entry.target.querySelectorAll('[data-count]').forEach(countUp);
+      revealObs.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // FORM
+  function handleSubmit() {
+    const name = document.getElementById('formName').value.trim();
+    const email = document.getElementById('formEmail').value.trim();
+    const msg = document.getElementById('formMessage').value.trim();
+    if (!name || !email || !msg) { alert('Please fill in all fields.'); return; }
+    document.getElementById('formSuccess').style.display = 'block';
+    document.getElementById('formName').value = '';
+    document.getElementById('formEmail').value = '';
+    document.getElementById('formMessage').value = '';
+  }
+
+  // NAV active state
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 200) current = s.id;
+    });
+    navLinks.forEach(a => {
+      const href = a.getAttribute('href');
+      a.style.color = href === '#' + current ? 'var(--gold)' : '';
+    });
+  }, { passive: true });
+</script>
 </body>
 </html>
