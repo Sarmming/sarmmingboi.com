@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Samuel Akintoye — Senior Graphic & UI/UX Designer with 7+ years crafting brand identities, marketing campaigns, and digital experiences across US, UK, Nigeria, and Ghana."/>
+<meta property="og:title" content="Samuel Akintoye — Senior Designer"/>
+<meta property="og:description" content="7+ years crafting high-impact visual identities and digital experiences across international markets."/>
+<meta property="og:type" content="website"/>
 <title>Samuel Akintoye — Senior Designer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -489,17 +493,14 @@
   .achievement-text { font-size: 0.86rem; line-height: 1.75; color: var(--muted); }
 
   /* SKILLS */
-  #skills { padding: 8rem 5rem; background: var(--dark); }
+  #skills { padding: 8rem 5rem; background: var(--dark); position: relative; }
   #skills::before {
     content: '';
-    display: block;
+    position: absolute;
+    top: 0; left: 5rem; right: 5rem;
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(201,169,110,0.2), transparent);
-    margin-bottom: 0;
-    position: absolute;
-    left: 5rem; right: 5rem;
   }
-  #skills { position: relative; }
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -562,76 +563,85 @@
   .cert-year { font-size: 0.65rem; color: var(--muted); margin-top: 0.3rem; }
 
   /* PORTFOLIO */
-#portfolio {
-  padding: 8rem 5rem;
-  background: var(--black);
-}
-
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 4rem;
-}
-
-.portfolio-item {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-
-.portfolio-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.portfolio-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(10,10,8,0.85);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.5rem;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.portfolio-item:hover .portfolio-overlay {
-  opacity: 1;
-}
-
-.portfolio-title {
-  font-size: 0.85rem;
-  color: var(--white);
-  margin-bottom: 0.5rem;
-}
-
-.portfolio-link {
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--gold);
-  text-decoration: none;
-}
-
-.portfolio-link:hover {
-  text-decoration: underline;
-}
-
-@media (max-width: 900px) {
+  #portfolio { padding: 8rem 5rem; background: var(--black); }
   .portfolio-grid {
-    grid-template-columns: 1fr 1fr;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
   }
-}
+  .portfolio-item {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: var(--mid);
+    aspect-ratio: 4/3;
+  }
+  .portfolio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .portfolio-item:hover img { transform: scale(1.04); }
+  /* Broken image fallback */
+  .portfolio-item img.errored {
+    display: none;
+  }
+  .portfolio-placeholder {
+    display: none;
+    width: 100%;
+    height: 100%;
+    min-height: 180px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: var(--surface);
+  }
+  .portfolio-placeholder span {
+    font-size: 1.5rem;
+    color: var(--gold-dark);
+    opacity: 0.5;
+  }
+  .portfolio-placeholder p {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+  .portfolio-item.img-error .portfolio-placeholder { display: flex; }
+  .portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,8,0.88);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.35s;
+  }
+  .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+  .portfolio-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+    line-height: 1.2;
+  }
+  .portfolio-link {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .portfolio-link:hover { color: var(--gold-light); }
 
-@media (max-width: 600px) {
-  .portfolio-grid {
-    grid-template-columns: 1fr;
-  }
-}
   /* CONTACT */
   #contact {
     padding: 8rem 5rem;
@@ -684,6 +694,7 @@
     cursor: none;
   }
   .form-input:focus, .form-textarea:focus { border-color: var(--gold-dark); }
+  .form-input.invalid, .form-textarea.invalid { border-color: rgba(200, 80, 80, 0.6); }
   .form-textarea { resize: vertical; min-height: 130px; }
   .form-submit {
     background: transparent;
@@ -708,6 +719,15 @@
     font-size: 0.8rem;
     letter-spacing: 0.06em;
   }
+  .form-error {
+    display: none;
+    padding: 0.75rem 1rem;
+    background: rgba(200,80,80,0.06);
+    border: 1px solid rgba(200,80,80,0.25);
+    color: #e08080;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+  }
 
   /* FOOTER */
   footer {
@@ -725,6 +745,31 @@
   .footer-links { display: flex; gap: 1.5rem; }
   .footer-links a { font-size: 0.66rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
   .footer-links a:hover { color: var(--gold); }
+
+  /* BACK TO TOP */
+  .back-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 44px; height: 44px;
+    border: 1px solid rgba(201,169,110,0.3);
+    background: rgba(10,10,8,0.9);
+    color: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    text-decoration: none;
+    z-index: 400;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.3s, transform 0.3s, background 0.3s;
+    pointer-events: none;
+  }
+  .back-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+  .back-top:hover { background: var(--gold); color: var(--black); }
 
   /* ANIMATIONS */
   @keyframes fadeUp {
@@ -768,8 +813,11 @@
     .achievements-grid { grid-template-columns: 1fr; }
     .skills-grid { grid-template-columns: 1fr; }
     #skills { padding: 6rem 3rem; }
-    .certs-grid { grid-template-columns: 1fr 1fr; padding: 0; }
+    #skills::before { left: 3rem; right: 3rem; }
+    .certs-grid { grid-template-columns: 1fr 1fr; }
     #certifications { padding: 6rem 3rem; }
+    #portfolio { padding: 6rem 3rem; }
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
     #contact { grid-template-columns: 1fr; gap: 4rem; padding: 6rem 3rem; }
     footer { padding: 2.5rem 3rem; }
     nav { padding: 1.5rem 2rem; }
@@ -778,47 +826,61 @@
   }
   @media (max-width: 600px) {
     .hero-left { padding: 9rem 1.8rem 4rem; }
-    #about, #experience, #achievements, #skills, #certifications, #contact { padding: 5rem 1.8rem; }
+    #about, #experience, #achievements, #skills, #certifications, #portfolio, #contact { padding: 5rem 1.8rem; }
     footer { padding: 2rem 1.8rem; flex-direction: column; text-align: center; }
     .certs-grid { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr; }
     .section-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
     .section-count { font-size: 3rem; }
     .hero-actions { flex-direction: column; align-items: flex-start; }
     #experience::before { left: 1.8rem; right: 1.8rem; }
+    #skills::before { left: 1.8rem; right: 1.8rem; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+    .hc3 { animation: none; }
+    .reveal { transition: none; opacity: 1; transform: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+<!-- BACK TO TOP -->
+<a href="#hero" class="back-top" id="backTop" aria-label="Back to top">↑</a>
 
 <!-- NAV -->
-<nav>
+<nav role="navigation" aria-label="Main navigation">
   <a href="#hero" class="nav-logo">Samuel A.</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#achievements">Achievements</a></li>
     <li><a href="#skills">Skills</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<div class="mobile-menu" id="mobileMenu">
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
   <a href="#about" onclick="closeMobile()">About</a>
   <a href="#experience" onclick="closeMobile()">Experience</a>
   <a href="#achievements" onclick="closeMobile()">Achievements</a>
   <a href="#skills" onclick="closeMobile()">Skills</a>
   <a href="#certifications" onclick="closeMobile()">Credentials</a>
+  <a href="#portfolio" onclick="closeMobile()">Portfolio</a>
   <a href="#contact" onclick="closeMobile()">Contact</a>
 </div>
 
 <!-- HERO -->
-<section id="hero">
+<section id="hero" aria-label="Introduction">
   <div class="hero-left">
     <p class="hero-eyebrow">Senior Graphic &amp; UI/UX Designer</p>
     <h1 class="hero-name">Samuel<br><em>Akintoye</em></h1>
@@ -829,7 +891,7 @@
       <a href="#contact" class="btn-ghost">Start a Project</a>
     </div>
   </div>
-  <div class="hero-right">
+  <div class="hero-right" aria-hidden="true">
     <div class="hero-visual">
       <div class="hero-grid-lines"></div>
       <div class="hero-circle hc1"></div>
@@ -838,24 +900,24 @@
     </div>
     <div class="hero-stats">
       <div>
-        <span class="stat-num" data-count="7">0</span>
+        <span class="stat-num" data-count="7" data-suffix="+">0</span>
         <span class="stat-label">Years Experience</span>
       </div>
       <div>
-        <span class="stat-num" data-count="60">0</span>
+        <span class="stat-num" data-count="60" data-suffix="+">0</span>
         <span class="stat-label">Projects Delivered</span>
       </div>
       <div>
-        <span class="stat-num" data-count="34">0</span>
-        <span class="stat-label">% Avg Engagement Uplift</span>
+        <span class="stat-num" data-count="34" data-suffix="%">0</span>
+        <span class="stat-label">Avg Engagement Uplift</span>
       </div>
     </div>
   </div>
-  <div class="hero-line"></div>
+  <div class="hero-line" aria-hidden="true"></div>
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee-section">
+<div class="marquee-section" aria-hidden="true">
   <div class="marquee-track">
     <span class="marquee-item">Adobe Photoshop</span>
     <span class="marquee-item">Illustrator</span>
@@ -881,7 +943,7 @@
 </div>
 
 <!-- ABOUT -->
-<section id="about">
+<section id="about" aria-label="About Samuel">
   <div class="about-left reveal">
     <p class="about-label">About</p>
     <h2 class="about-heading">Design that <em>moves</em> people and markets.</h2>
@@ -922,13 +984,13 @@
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience">
+<section id="experience" aria-label="Work experience">
   <div class="section-header reveal">
     <div>
       <p class="section-label">Career Journey</p>
       <h2 class="section-heading">Experience</h2>
     </div>
-    <span class="section-count">05</span>
+    <span class="section-count" aria-hidden="true">05</span>
   </div>
   <div class="timeline">
     <div class="timeline-item reveal">
@@ -1015,25 +1077,25 @@
 </section>
 
 <!-- ACHIEVEMENTS -->
-<section id="achievements">
+<section id="achievements" aria-label="Key achievements">
   <div class="section-header reveal">
     <div>
       <p class="section-label">Results</p>
       <h2 class="section-heading">Key Achievements</h2>
     </div>
-    <span class="section-count">04</span>
+    <span class="section-count" aria-hidden="true">04</span>
   </div>
   <div class="achievements-grid">
     <div class="achievement-card reveal">
-      <span class="achievement-num" data-count="34">0%</span>
+      <span class="achievement-num" data-count="34" data-suffix="%">0%</span>
       <p class="achievement-text">Average increase in social media engagement across three client accounts through strategic creative redesigns.</p>
     </div>
     <div class="achievement-card reveal reveal-d1">
-      <span class="achievement-num" data-count="25">0%</span>
+      <span class="achievement-num" data-count="25" data-suffix="%">0%</span>
       <p class="achievement-text">Reduction in client revision cycles at Clayvon Creative Agency via a structured design review workflow.</p>
     </div>
     <div class="achievement-card reveal reveal-d2">
-      <span class="achievement-num" data-count="60">0+</span>
+      <span class="achievement-num" data-count="60" data-suffix="+">0+</span>
       <p class="achievement-text">Projects delivered on time and within budget at Gulf of Guinea Media Group, with 95%+ client satisfaction.</p>
     </div>
     <div class="achievement-card reveal reveal-d3">
@@ -1044,195 +1106,191 @@
 </section>
 
 <!-- SKILLS -->
-<section id="skills">
+<section id="skills" aria-label="Skills and proficiency">
   <div class="section-header reveal">
     <div>
       <p class="section-label">Proficiency</p>
       <h2 class="section-heading">Skills</h2>
     </div>
-    <span class="section-count">03</span>
+    <span class="section-count" aria-hidden="true">03</span>
   </div>
   <div class="skills-grid">
     <div class="reveal">
       <p class="skill-cat-title">Design Software</p>
       <div class="skill-bar-item">
         <div class="skill-name"><span>Adobe Photoshop</span><span class="skill-pct">97%</span></div>
-        <div class="skill-track"><div class="skill-fill" data-width="97"></div></div>
+        <div class="skill-track"><div class="skill-fill" data-width="97" role="progressbar" aria-valuenow="97" aria-valuemin="0" aria-valuemax="100"></div></div>
       </div>
       <div class="skill-bar-item">
         <div class="skill-name"><span>Adobe Illustrator</span><span class="skill-pct">95%</span></div>
-        <div class="skill-track"><div class="skill-fill" data-width="95"></div></div>
+        <div class="skill-track"><div class="skill-fill" data-width="95" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div></div>
       </div>
       <div class="skill-bar-item">
         <div class="skill-name"><span>Figma</span><span class="skill-pct">92%</span></div>
-        <div class="skill-track"><div class="skill-fill" data-width="92"></div></div>
+        <div class="skill-track"><div class="skill-fill" data-width="92" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100"></div></div>
       </div>
       <div class="skill-bar-item">
         <div class="skill-name"><span>CorelDRAW</span><span class="skill-pct">90%</span></div>
-        <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+        <div class="skill-track"><div class="skill-fill" data-width="90" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div></div>
       </div>
       <div class="skill-bar-item">
         <div class="skill-name"><span>Adobe XD</span><span class="skill-pct">85%</span></div>
-        <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+        <div class="skill-track"><div class="skill-fill" data-width="85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div></div>
       </div>
     </div>
     <div class="reveal reveal-d1">
       <p class="skill-cat-title">Brand &amp; Marketing</p>
       <div class="skill-bar-item">
         <div class="skill-name"><span>Visual Identity</span><span class="skill-pct">95%</span></div>
-        <div class="skill-track"><div class="skill-fill" data-width="95"></div></div>
+        <div class="skill-track"><div class="skill-fill" data-width="95" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div></div>
       </div>
       <div class="skill-bar-item">
         <div class="skill-name"><span>Campaign Design</span><span class="skill-pct">93%</span></div>
-        <div class="skill-track"><div class="skill-fill" data-width="93"></div></div>
+        <div class="skill-track"><div class="skill-fill" data-width="93" role="progressbar" aria-valuenow="93" aria-valuemin="0" aria-valuemax="100"></div></div>
       </div>
       <div class="skill-bar-item">
         <div class="skill-name"><span>Social Media Design</span><span class="skill-pct">90%</span></div>
-        <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+        <div class="skill-track"><div class="skill-fill" data-width="90" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div></div>
       </div>
       <div class="skill-bar-item">
         <div class="skill-name"><span>Print &amp; Digital</span><span class="skill-pct">88%</span></div>
-        <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+        <div class="skill-track"><div class="skill-fill" data-width="88" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div></div>
       </div>
       <div class="skill-bar-item">
         <div class="skill-name"><span>Motion Graphics</span><span class="skill-pct">78%</span></div>
-        <div class="skill-track"><div class="skill-fill" data-width="78"></div></div>
+        <div class="skill-track"><div class="skill-fill" data-width="78" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div></div>
       </div>
     </div>
     <div class="reveal reveal-d2">
       <p class="skill-cat-title">UI/UX &amp; Front-End</p>
       <div class="skill-bar-item">
         <div class="skill-name"><span>Wireframing</span><span class="skill-pct">88%</span></div>
-        <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+        <div class="skill-track"><div class="skill-fill" data-width="88" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div></div>
       </div>
       <div class="skill-bar-item">
         <div class="skill-name"><span>Prototyping</span><span class="skill-pct">85%</span></div>
-        <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+        <div class="skill-track"><div class="skill-fill" data-width="85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div></div>
       </div>
       <div class="skill-bar-item">
         <div class="skill-name"><span>Responsive Design</span><span class="skill-pct">80%</span></div>
-        <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+        <div class="skill-track"><div class="skill-fill" data-width="80" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div></div>
       </div>
       <div class="skill-bar-item">
         <div class="skill-name"><span>HTML5</span><span class="skill-pct">72%</span></div>
-        <div class="skill-track"><div class="skill-fill" data-width="72"></div></div>
+        <div class="skill-track"><div class="skill-fill" data-width="72" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div></div>
       </div>
       <div class="skill-bar-item">
         <div class="skill-name"><span>CSS3</span><span class="skill-pct">70%</span></div>
-        <div class="skill-track"><div class="skill-fill" data-width="70"></div></div>
+        <div class="skill-track"><div class="skill-fill" data-width="70" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CERTIFICATIONS -->
-<section id="certifications">
+<section id="certifications" aria-label="Education and certifications">
   <div class="section-header reveal">
     <div>
       <p class="section-label">Credentials</p>
       <h2 class="section-heading">Education &amp; Certifications</h2>
     </div>
-    <span class="section-count">05</span>
+    <span class="section-count" aria-hidden="true">05</span>
   </div>
   <div class="certs-grid">
     <div class="cert-card reveal">
-      <span class="cert-icon">✦</span>
+      <span class="cert-icon" aria-hidden="true">✦</span>
       <p class="cert-name">Google UX Design Certificate</p>
       <p class="cert-issuer">Coursera</p>
       <p class="cert-year">2023</p>
     </div>
     <div class="cert-card reveal reveal-d1">
-      <span class="cert-icon">✦</span>
+      <span class="cert-icon" aria-hidden="true">✦</span>
       <p class="cert-name">Advanced Figma for Designers</p>
       <p class="cert-issuer">Udemy</p>
       <p class="cert-year">2022</p>
     </div>
     <div class="cert-card reveal reveal-d2">
-      <span class="cert-icon">✦</span>
+      <span class="cert-icon" aria-hidden="true">✦</span>
       <p class="cert-name">Adobe Certified Professional</p>
       <p class="cert-issuer">Visual Design</p>
       <p class="cert-year">2021</p>
     </div>
     <div class="cert-card reveal reveal-d1">
-      <span class="cert-icon">◆</span>
+      <span class="cert-icon" aria-hidden="true">◆</span>
       <p class="cert-name">HND, Computer Science</p>
       <p class="cert-issuer">Federal Polytechnic Offa</p>
       <p class="cert-year">2024</p>
     </div>
     <div class="cert-card reveal reveal-d2">
-      <span class="cert-icon">◆</span>
+      <span class="cert-icon" aria-hidden="true">◆</span>
       <p class="cert-name">ND, Computer Science</p>
       <p class="cert-issuer">Federal Polytechnic Offa</p>
       <p class="cert-year">2021</p>
     </div>
   </div>
 </section>
+
 <!-- PORTFOLIO -->
-<section id="portfolio">
+<section id="portfolio" aria-label="Portfolio of selected works">
   <div class="section-header reveal">
     <div>
       <p class="section-label">Selected Works</p>
       <h2 class="section-heading">Portfolio</h2>
     </div>
-    <span class="section-count">20+</span>
+    <span class="section-count" aria-hidden="true">20+</span>
   </div>
 
   <div class="portfolio-grid">
 
-    <!-- UI/UX PROJECT 1 -->
     <div class="portfolio-item reveal">
-      <img src="assets/images/UI.png" alt="UI UX Design">
+      <img src="assets/images/UI.png" alt="UI/UX Design Project — mobile app interface">
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
       <div class="portfolio-overlay">
         <p class="portfolio-title">UI/UX Design Project</p>
-        <a href="https://www.figma.com/proto/2vgDGDoLwJaIEb9ITFtXfH" target="_blank" class="portfolio-link">
-          View in Figma →
-        </a>
+        <a href="https://www.figma.com/proto/2vgDGDoLwJaIEb9ITFtXfH" target="_blank" rel="noopener noreferrer" class="portfolio-link">View in Figma →</a>
       </div>
     </div>
 
-    <!-- UI/UX PROJECT 2 -->
     <div class="portfolio-item reveal">
-      <img src="assets/images/Language Translator3.png" alt="Language Translator UI">
+      <img src="assets/images/Language Translator3.png" alt="Language Translator App — UI design in Figma">
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
       <div class="portfolio-overlay">
         <p class="portfolio-title">Language Translator App</p>
-        <a href="https://www.figma.com/proto/jHQyPY5tYUSEadSfCHUeNC" target="_blank" class="portfolio-link">
-          View in Figma →
-        </a>
+        <a href="https://www.figma.com/proto/jHQyPY5tYUSEadSfCHUeNC" target="_blank" rel="noopener noreferrer" class="portfolio-link">View in Figma →</a>
       </div>
     </div>
 
-    <!-- GENERAL DESIGNS -->
-    <div class="portfolio-item reveal"><img src="assets/images/1.PNG"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/2.PNG"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/3.PNG"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/4.png"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/5.png"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/6.jfif"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/7.jfif"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/8.jfif"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/9.jfif"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/10.jpeg"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/11.jpeg"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/12.jpeg"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/13.jpeg"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/14.jpeg"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/15.jpeg"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/16.jpeg"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/17.jpeg"></div>
-
-    <div class="portfolio-item reveal"><img src="assets/images/ARM-OF-CHRISTO.png"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/Club.png"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/Karaoke.png"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/Ladies-night.png"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/Unholy.png"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/WGF-CONCERT.jpg"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/WWKP-AUGUST.png"></div>
-    <div class="portfolio-item reveal"><img src="assets/images/White-Party.png"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/1.PNG" alt="Graphic design work 1"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/2.PNG" alt="Graphic design work 2"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/3.PNG" alt="Graphic design work 3"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/4.png" alt="Graphic design work 4"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/5.png" alt="Graphic design work 5"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/6.jfif" alt="Graphic design work 6"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/7.jfif" alt="Graphic design work 7"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/8.jfif" alt="Graphic design work 8"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/9.jfif" alt="Graphic design work 9"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/10.jpeg" alt="Graphic design work 10"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/11.jpeg" alt="Graphic design work 11"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/12.jpeg" alt="Graphic design work 12"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/13.jpeg" alt="Graphic design work 13"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/14.jpeg" alt="Graphic design work 14"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/15.jpeg" alt="Graphic design work 15"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/16.jpeg" alt="Graphic design work 16"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/17.jpeg" alt="Graphic design work 17"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/ARM-OF-CHRISTO.png" alt="Arm of Christo event design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/Club.png" alt="Club event design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/Karaoke.png" alt="Karaoke event design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/Ladies-night.png" alt="Ladies Night event design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/Unholy.png" alt="Unholy event poster design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/WGF-CONCERT.jpg" alt="WGF Concert promotional design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/WWKP-AUGUST.png" alt="WWKP August event design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal"><img src="assets/images/White-Party.png" alt="White Party event poster design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
 
   </div>
 </section>
+
 <!-- CONTACT -->
-<section id="contact">
+<section id="contact" aria-label="Contact Samuel">
   <div class="contact-left reveal">
     <p class="section-label">Let's Connect</p>
     <h2 class="contact-heading">Ready to create something <em>extraordinary?</em></h2>
@@ -1242,11 +1300,11 @@
         <span class="link-label">Email</span>
         <span>omoobaiyeakintoyesamuel@gmail.com</span>
       </a>
-      <a href="https://linkedin.com/in/samuel-akintoye" target="_blank" class="contact-link">
+      <a href="https://linkedin.com/in/samuel-akintoye" target="_blank" rel="noopener noreferrer" class="contact-link">
         <span class="link-label">LinkedIn</span>
         <span>linkedin.com/in/samuel-akintoye</span>
       </a>
-      <a href="https://sarmming.github.io/sarmmingboi.com" target="_blank" class="contact-link">
+      <a href="https://sarmming.github.io/sarmmingboi.com" target="_blank" rel="noopener noreferrer" class="contact-link">
         <span class="link-label">Portfolio</span>
         <span>sarmming.github.io/sarmmingboi.com</span>
       </a>
@@ -1255,19 +1313,20 @@
   <div class="reveal reveal-d2">
     <div class="contact-form">
       <div class="form-group">
-        <label class="form-label">Your Name</label>
-        <input type="text" class="form-input" id="formName" placeholder="Jane Smith"/>
+        <label class="form-label" for="formName">Your Name</label>
+        <input type="text" class="form-input" id="formName" placeholder="Jane Smith" autocomplete="name"/>
       </div>
       <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input type="email" class="form-input" id="formEmail" placeholder="jane@company.com"/>
+        <label class="form-label" for="formEmail">Email Address</label>
+        <input type="email" class="form-input" id="formEmail" placeholder="jane@company.com" autocomplete="email"/>
       </div>
       <div class="form-group">
-        <label class="form-label">Project Brief</label>
+        <label class="form-label" for="formMessage">Project Brief</label>
         <textarea class="form-textarea" id="formMessage" placeholder="Tell me about your project..."></textarea>
       </div>
-      <button class="form-submit" onclick="handleSubmit()">Send Message →</button>
-      <div class="form-success" id="formSuccess">Thank you — I'll be in touch shortly.</div>
+      <button class="form-submit" id="formSubmit" type="button">Send Message →</button>
+      <div class="form-success" id="formSuccess" role="alert">Thank you — I'll be in touch shortly.</div>
+      <div class="form-error" id="formError" role="alert">Please fill in all fields with a valid email address.</div>
     </div>
   </div>
 </section>
@@ -1275,7 +1334,7 @@
 <!-- FOOTER -->
 <footer>
   <span class="footer-logo">S. Akintoye</span>
-  <span class="footer-copy">© 2025 Samuel Akintoye. All rights reserved.</span>
+  <span class="footer-copy">© <span id="footerYear"></span> Samuel Akintoye. All rights reserved.</span>
   <div class="footer-links">
     <a href="#hero">Top</a>
     <a href="#about">About</a>
@@ -1285,6 +1344,9 @@
 </footer>
 
 <script>
+  // DYNAMIC FOOTER YEAR
+  document.getElementById('footerYear').textContent = new Date().getFullYear();
+
   // CUSTOM CURSOR
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
@@ -1304,7 +1366,7 @@
     requestAnimationFrame(animateRing);
   })();
 
-  document.querySelectorAll('a, button, .tag, .achievement-card, .cert-card, .timeline-item').forEach(el => {
+  document.querySelectorAll('a, button, .tag, .achievement-card, .cert-card, .timeline-item, .portfolio-item').forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.style.width = '18px'; cursor.style.height = '18px';
       ring.style.width = '58px'; ring.style.height = '58px'; ring.style.opacity = '0.25';
@@ -1316,21 +1378,28 @@
   });
 
   // HAMBURGER
-  document.getElementById('hamburger').addEventListener('click', function() {
-    this.classList.toggle('open');
-    document.getElementById('mobileMenu').classList.toggle('open');
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', function() {
+    const isOpen = this.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    this.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
   function closeMobile() {
-    document.getElementById('hamburger').classList.remove('open');
-    document.getElementById('mobileMenu').classList.remove('open');
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
   }
 
-  // COUNT-UP
+  // COUNT-UP with suffix support
   function countUp(el) {
     const target = parseInt(el.dataset.count);
-    const suffix = el.textContent.replace(/[0-9]/g, '');
-    let startTime = null;
+    if (isNaN(target)) return;
+    const suffix = el.dataset.suffix || '';
     const duration = 1800;
+    let startTime = null;
     function step(timestamp) {
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / duration, 1);
@@ -1342,21 +1411,27 @@
     requestAnimationFrame(step);
   }
 
-  // Hero stats
+  // Hero stats count-up
   setTimeout(() => {
     document.querySelectorAll('.hero-stats [data-count]').forEach(countUp);
   }, 1500);
 
-  // SCROLL REVEAL
+  // PORTFOLIO IMAGE ERROR HANDLING
+  document.querySelectorAll('.portfolio-item img').forEach(img => {
+    img.addEventListener('error', function() {
+      this.classList.add('errored');
+      this.closest('.portfolio-item').classList.add('img-error');
+    });
+  });
+
+  // SCROLL REVEAL — debounced via IntersectionObserver (already efficient)
   const revealObs = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       entry.target.classList.add('visible');
-      // Skill bars
       entry.target.querySelectorAll('.skill-fill').forEach(b => {
         b.style.width = b.dataset.width + '%';
       });
-      // Count-ups inside cards
       entry.target.querySelectorAll('[data-count]').forEach(countUp);
       revealObs.unobserve(entry.target);
     });
@@ -1364,30 +1439,64 @@
 
   document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-  // FORM
-  function handleSubmit() {
-    const name = document.getElementById('formName').value.trim();
-    const email = document.getElementById('formEmail').value.trim();
-    const msg = document.getElementById('formMessage').value.trim();
-    if (!name || !email || !msg) { alert('Please fill in all fields.'); return; }
-    document.getElementById('formSuccess').style.display = 'block';
-    document.getElementById('formName').value = '';
-    document.getElementById('formEmail').value = '';
-    document.getElementById('formMessage').value = '';
-  }
+  // FORM VALIDATION + MAILTO FALLBACK
+  document.getElementById('formSubmit').addEventListener('click', function() {
+    const name = document.getElementById('formName');
+    const email = document.getElementById('formEmail');
+    const msg = document.getElementById('formMessage');
+    const success = document.getElementById('formSuccess');
+    const error = document.getElementById('formError');
 
-  // NAV active state
+    // Reset states
+    [name, email, msg].forEach(el => el.classList.remove('invalid'));
+    success.style.display = 'none';
+    error.style.display = 'none';
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let valid = true;
+
+    if (!name.value.trim()) { name.classList.add('invalid'); valid = false; }
+    if (!email.value.trim() || !emailRegex.test(email.value.trim())) { email.classList.add('invalid'); valid = false; }
+    if (!msg.value.trim()) { msg.classList.add('invalid'); valid = false; }
+
+    if (!valid) {
+      error.style.display = 'block';
+      return;
+    }
+
+    // Open mailto as fallback (server-side email not available in static site)
+    const subject = encodeURIComponent('Project Enquiry from ' + name.value.trim());
+    const body = encodeURIComponent(msg.value.trim() + '\n\nFrom: ' + name.value.trim() + '\nEmail: ' + email.value.trim());
+    window.location.href = 'mailto:omoobaiyeakintoyesamuel@gmail.com?subject=' + subject + '&body=' + body;
+
+    success.style.display = 'block';
+    name.value = ''; email.value = ''; msg.value = '';
+  });
+
+  // BACK TO TOP BUTTON
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('visible', window.scrollY > 600);
+  }, { passive: true });
+
+  // NAV ACTIVE STATE (throttled)
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 200) current = s.id;
-    });
-    navLinks.forEach(a => {
-      const href = a.getAttribute('href');
-      a.style.color = href === '#' + current ? 'var(--gold)' : '';
-    });
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        let current = '';
+        sections.forEach(s => {
+          if (window.scrollY >= s.offsetTop - 200) current = s.id;
+        });
+        navLinks.forEach(a => {
+          a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
   }, { passive: true });
 </script>
 </body>
