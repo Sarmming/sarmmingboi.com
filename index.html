@@ -561,6 +561,77 @@
   .cert-issuer { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; }
   .cert-year { font-size: 0.65rem; color: var(--muted); margin-top: 0.3rem; }
 
+  /* PORTFOLIO */
+#portfolio {
+  padding: 8rem 5rem;
+  background: var(--black);
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 4rem;
+}
+
+.portfolio-item {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.portfolio-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.portfolio-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10,10,8,0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.portfolio-item:hover .portfolio-overlay {
+  opacity: 1;
+}
+
+.portfolio-title {
+  font-size: 0.85rem;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.portfolio-link {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.portfolio-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+}
   /* CONTACT */
   #contact {
     padding: 8rem 5rem;
@@ -1096,7 +1167,70 @@
     </div>
   </div>
 </section>
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-header reveal">
+    <div>
+      <p class="section-label">Selected Works</p>
+      <h2 class="section-heading">Portfolio</h2>
+    </div>
+    <span class="section-count">20+</span>
+  </div>
 
+  <div class="portfolio-grid">
+
+    <!-- UI/UX PROJECT 1 -->
+    <div class="portfolio-item reveal">
+      <img src="assets/images/ui.png" alt="UI UX Design">
+      <div class="portfolio-overlay">
+        <p class="portfolio-title">UI/UX Design Project</p>
+        <a href="https://www.figma.com/proto/2vgDGDoLwJaIEb9ITFtXfH" target="_blank" class="portfolio-link">
+          View in Figma →
+        </a>
+      </div>
+    </div>
+
+    <!-- UI/UX PROJECT 2 -->
+    <div class="portfolio-item reveal">
+      <img src="assets/images/Language Translator3.png" alt="Language Translator UI">
+      <div class="portfolio-overlay">
+        <p class="portfolio-title">Language Translator App</p>
+        <a href="https://www.figma.com/proto/jHQyPY5tYUSEadSfCHUeNC" target="_blank" class="portfolio-link">
+          View in Figma →
+        </a>
+      </div>
+    </div>
+
+    <!-- GENERAL DESIGNS -->
+    <div class="portfolio-item reveal"><img src="assets/images/1.PNG"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/2.PNG"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/3.PNG"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/4.png"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/5.png"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/6.jfif"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/7.jfif"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/8.jfif"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/9.jfif"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/10.jpeg"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/11.jpeg"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/12.jpeg"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/13.jpeg"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/14.jpeg"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/15.jpeg"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/16.jpeg"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/17.jpeg"></div>
+
+    <div class="portfolio-item reveal"><img src="assets/images/ARM-OF-CHRISTO.png"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/Club.png"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/Karaoke.png"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/Ladies-night.png"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/Unholy.png"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/WGF-CONCERT.jpg"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/WWKP-AUGUST.png"></div>
+    <div class="portfolio-item reveal"><img src="assets/images/White-Party.png"></div>
+
+  </div>
+</section>
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-left reveal">
