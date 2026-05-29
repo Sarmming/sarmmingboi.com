@@ -935,10 +935,21 @@
   .portfolio-item:hover img {
     transform: none !important;
   }
-  /* Always show overlay info on mobile (no hover state on touch) */
+  /* Hide the floating overlay on mobile (no hover on touch) */
   .portfolio-overlay {
     opacity: 0 !important;
     pointer-events: none !important;
+    position: absolute !important;
+  }
+  /* But show it as a label strip BELOW the image for items that have it */
+  .portfolio-item:has(.portfolio-link) .portfolio-overlay {
+    opacity: 1 !important;
+    pointer-events: all !important;
+    position: relative !important;
+    inset: unset !important;
+    background: rgba(10,10,8,0.95) !important;
+    padding: 0.75rem 1rem !important;
+    display: flex !important;
   }
   .portfolio-placeholder {
     min-height: 120px;
@@ -1382,22 +1393,8 @@
     </div>
 
     <div class="portfolio-item reveal">
-      <a href="assets/images/IMG_6574.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
-        <img src="assets/images/IMG_6574.png" alt="Design">
-      </a>
-      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
-    </div>
-
-    <div class="portfolio-item reveal">
       <a href="assets/images/IMG_6995.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
         <img src="assets/images/IMG_6995.png" alt="Wessy Design">
-      </a>
-      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
-    </div>
-
-    <div class="portfolio-item reveal">
-      <a href="assets/images/IMG_4643.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
-        <img src="assets/images/IMG_4643.png" alt="Design">
       </a>
       <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
     </div>
@@ -1412,6 +1409,20 @@
     <div class="portfolio-item reveal">
       <a href="assets/images/IMG_5674.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
         <img src="assets/images/IMG_5674.png" alt="Design">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/IMG_4643.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/IMG_4643.png" alt="Design">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/IMG_6574.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/IMG_6574.png" alt="Design">
       </a>
       <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
     </div>
