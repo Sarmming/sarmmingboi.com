@@ -580,6 +580,13 @@
     background: var(--mid);
     aspect-ratio: 4/3;
   }
+  /* Portfolio image link wrapper */
+  .portfolio-img-link {
+    display: block;
+    line-height: 0;
+    width: 100%;
+    height: 100%;
+  }
   .portfolio-item img {
     width: 100%;
     height: 100%;
@@ -626,6 +633,7 @@
     padding: 1.5rem;
     opacity: 0;
     transition: opacity 0.35s;
+    pointer-events: none;
   }
   .portfolio-item:hover .portfolio-overlay { opacity: 1; }
   .portfolio-title {
@@ -642,6 +650,7 @@
     color: var(--gold);
     text-decoration: none;
     transition: color 0.3s;
+    pointer-events: all;
   }
   .portfolio-link:hover { color: var(--gold-light); }
 
@@ -842,7 +851,7 @@
   }
 
   .hero-left {
-    padding: 6.5rem 1.5rem 3rem; /* reduced top space */
+    padding: 6.5rem 1.5rem 3rem;
   }
 
   .hero-eyebrow {
@@ -863,7 +872,7 @@
   }
 
   .hero-desc {
-    font-size: 1rem; /* increased readability */
+    font-size: 1rem;
     line-height: 1.7;
     margin-bottom: 2rem;
   }
@@ -886,6 +895,64 @@
     padding: 2rem 1.5rem;
     flex-direction: column;
     text-align: center;
+  }
+
+  /* =============================================
+     PORTFOLIO — MOBILE FIXES (the two changes)
+     1. Single-column list layout
+     2. Full image shown (no crop) + tap to open
+     ============================================= */
+  .portfolio-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+    margin-top: 2rem;
+  }
+  .portfolio-item {
+    aspect-ratio: unset !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(201,169,110,0.1) !important;
+    background: #111110 !important;
+  }
+  /* Full image — no crop, dark tint blends white backgrounds */
+  .portfolio-item .portfolio-img-link {
+    display: block;
+    width: 100%;
+    height: auto;
+    line-height: 0;
+    background: #111110;
+    position: relative;
+  }
+  .portfolio-item .portfolio-img-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 8, 0.38);
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+  .portfolio-item img {
+    object-fit: contain !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    display: block !important;
+    background: #111110 !important;
+  }
+  /* Disable the scale hover on mobile (touch devices) */
+  .portfolio-item:hover img {
+    transform: none !important;
+  }
+  /* Always show overlay info on mobile (no hover state on touch) */
+  .portfolio-overlay {
+    opacity: 1 !important;
+    position: relative !important;
+    inset: unset !important;
+    background: rgba(10,10,8,0.92) !important;
+    padding: 0.7rem 1rem !important;
+    pointer-events: all !important;
+  }
+  .portfolio-placeholder {
+    min-height: 120px;
   }
 }
 
@@ -1283,6 +1350,8 @@
 </section>
 
 <!-- PORTFOLIO -->
+<!-- ONLY CHANGE: each img wrapped in <a> to open full image in new tab -->
+<!-- MOBILE: single-column list, full image shown (no crop), via CSS above -->
 <section id="portfolio" aria-label="Portfolio of selected works">
   <div class="section-header reveal">
     <div>
@@ -1295,7 +1364,9 @@
   <div class="portfolio-grid">
 
     <div class="portfolio-item reveal">
-      <img src="assets/images/UI.png" alt="UI/UX Design Project — mobile app interface">
+      <a href="assets/images/UI.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/UI.png" alt="UI/UX Design Project — mobile app interface">
+      </a>
       <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
       <div class="portfolio-overlay">
         <p class="portfolio-title">UI/UX Design Project</p>
@@ -1304,7 +1375,9 @@
     </div>
 
     <div class="portfolio-item reveal">
-      <img src="assets/images/Language Translator3.png" alt="Language Translator App — UI design in Figma">
+      <a href="assets/images/Language Translator3.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/Language Translator3.png" alt="Language Translator App — UI design in Figma">
+      </a>
       <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
       <div class="portfolio-overlay">
         <p class="portfolio-title">UI/UX Design Project</p>
@@ -1312,30 +1385,166 @@
       </div>
     </div>
 
-    
-    <div class="portfolio-item reveal"><img src="assets/images/IMG_5899.png" alt="Oga Carousel Design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/IMG_6995.png" alt="Wessy Design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/IMG_5979.png" alt="Design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/IMG_5674.png" alt="Design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/IMG_4643.png" alt="Design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/IMG_6574.png" alt="Design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/1CFF9CE0-B747-483D-A5D2-8D178FD134A8.png" alt="Doris Design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/WWKP-AUGUST.png" alt="WWKP August event design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/White-Party.png" alt="White Party event poster design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/10.jpeg" alt="Graphic design work 10"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/Karaoke.png" alt="Karaoke event design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/Ladies-night.png" alt="Ladies Night event design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/Unholy.png" alt="Unholy event poster design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-   <div class="portfolio-item reveal"><img src="assets/images/7.jfif" alt="Graphic design work 7"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/8.jfif" alt="Graphic design work 8"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/9.jfif" alt="Graphic design work 9"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/12.jpeg" alt="Graphic design work 12"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/15.jpeg" alt="Graphic design work 15"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/16.jpeg" alt="Graphic design work 16"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/Club.png" alt="Club event design"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/1.PNG" alt="Graphic design work 1"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/3.PNG" alt="Graphic design work 3"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
-    <div class="portfolio-item reveal"><img src="assets/images/4.png" alt="Graphic design work 4"><div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div></div>
+    <div class="portfolio-item reveal">
+      <a href="assets/images/IMG_5899.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/IMG_5899.png" alt="Oga Carousel Design">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/IMG_6995.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/IMG_6995.png" alt="Wessy Design">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/IMG_5979.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/IMG_5979.png" alt="Design">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/IMG_5674.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/IMG_5674.png" alt="Design">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/IMG_4643.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/IMG_4643.png" alt="Design">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/IMG_6574.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/IMG_6574.png" alt="Design">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/1CFF9CE0-B747-483D-A5D2-8D178FD134A8.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/1CFF9CE0-B747-483D-A5D2-8D178FD134A8.png" alt="Doris Design">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/WWKP-AUGUST.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/WWKP-AUGUST.png" alt="WWKP August event design">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/White-Party.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/White-Party.png" alt="White Party event poster design">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/10.jpeg" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/10.jpeg" alt="Graphic design work 10">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/Karaoke.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/Karaoke.png" alt="Karaoke event design">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/Ladies-night.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/Ladies-night.png" alt="Ladies Night event design">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/Unholy.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/Unholy.png" alt="Unholy event poster design">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/7.jfif" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/7.jfif" alt="Graphic design work 7">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/8.jfif" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/8.jfif" alt="Graphic design work 8">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/9.jfif" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/9.jfif" alt="Graphic design work 9">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/12.jpeg" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/12.jpeg" alt="Graphic design work 12">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/15.jpeg" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/15.jpeg" alt="Graphic design work 15">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/16.jpeg" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/16.jpeg" alt="Graphic design work 16">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/Club.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/Club.png" alt="Club event design">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/1.PNG" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/1.PNG" alt="Graphic design work 1">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/3.PNG" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/3.PNG" alt="Graphic design work 3">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
+
+    <div class="portfolio-item reveal">
+      <a href="assets/images/4.png" target="_blank" rel="noopener noreferrer" class="portfolio-img-link" title="View full image">
+        <img src="assets/images/4.png" alt="Graphic design work 4">
+      </a>
+      <div class="portfolio-placeholder"><span>✦</span><p>Design Work</p></div>
+    </div>
 
   </div>
 </section>
